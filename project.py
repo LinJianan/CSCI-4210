@@ -7,10 +7,9 @@ Jianan Lin (林家南), 662024667, linj21@rpi.edu
 """
 
 import math
-from os import truncate
 import sys
 import copy
-from decimal import Decimal
+# from decimal import Decimal
 
 
 """
@@ -25,7 +24,7 @@ process = [process_name, arrive_time, CPU_bursts, CPU_burst_time, IO_burst_time,
 以下是全局变量区
 """
 
-DISPLAY_MAX_T = 1000
+DISPLAY_MAX_T = 200000
 TAU = 1
 
 process_number = 0
@@ -75,7 +74,8 @@ def FCFS(process_list, f):
     running, block_map = [False, '', '', ''], {}
 
     for p in process_list:
-        arrive_time_to_process[p[1]], name_to_process[p[0]] = copy.deepcopy(p), copy.deepcopy(p)
+        new_p = copy.deepcopy(p)
+        arrive_time_to_process[p[1]], name_to_process[p[0]] = new_p, new_p
 
     while True:
 
@@ -180,26 +180,26 @@ def FCFS(process_list, f):
         wait_time, time = wait_time + len(intersect), time + 1
     
     # 没用
-    cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
-    wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
-    turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
+    # wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
+    # turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
     
-    cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
     
-    if cpu_burst_time_average == Decimal('1001.295'):
-        cpu_burst_time_average += Decimal('0.001')
-        wait_time_average += Decimal('0.001')
-        turnaround_time_average += Decimal('0.001')
+    # if cpu_burst_time_average == Decimal('1001.295'):
+    #     cpu_burst_time_average += Decimal('0.001')
+    #     wait_time_average += Decimal('0.001')
+    #     turnaround_time_average += Decimal('0.001')
     
-    if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
-        turnaround_time_average += Decimal('0.001')
+    # if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
+    #     turnaround_time_average += Decimal('0.001')
 
-    CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
-    CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    if CPU_utility in [Decimal('10.983'), Decimal('38.283'), Decimal('41.713')]:
-        CPU_utility = CPU_utility + Decimal('0.001')
+    # CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
+    # CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # if CPU_utility in [Decimal('10.983'), Decimal('38.283'), Decimal('41.713')]:
+    #     CPU_utility = CPU_utility + Decimal('0.001')
     # 到这里没用
 
     cpu_burst_time_average = cpu_burst_time[0] / cpu_burst_time[1]
@@ -249,7 +249,8 @@ def SJF(process_list, f):
     running, block_map = [False, '', '', ''], {}
 
     for p in process_list:
-        arrive_time_to_process[p[1]], name_to_process[p[0]] = copy.deepcopy(p), copy.deepcopy(p)
+        new_p = copy.deepcopy(p)
+        arrive_time_to_process[p[1]], name_to_process[p[0]] = new_p, new_p
 
     while True:
 
@@ -352,29 +353,29 @@ def SJF(process_list, f):
 
     # 没用
 
-    cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
-    wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
-    turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
+    # wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
+    # turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
     
-    cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
     
-    if cpu_burst_time_average == Decimal('1001.295'):
-        cpu_burst_time_average += Decimal('0.001')
-        wait_time_average += Decimal('0.001')
-        # turnaround_time_average += Decimal('0.001')
+    # if cpu_burst_time_average == Decimal('1001.295'):
+    #     cpu_burst_time_average += Decimal('0.001')
+    #     wait_time_average += Decimal('0.001')
+    #     # turnaround_time_average += Decimal('0.001')
     
-    if wait_time_average == Decimal('66.377'):
-        wait_time_average += Decimal('0.001')
+    # if wait_time_average == Decimal('66.377'):
+    #     wait_time_average += Decimal('0.001')
     
-    if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
-        turnaround_time_average += Decimal('0.001')
+    # if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
+    #     turnaround_time_average += Decimal('0.001')
 
-    CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
-    CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    if CPU_utility in [Decimal('10.983')]:
-        CPU_utility = CPU_utility + Decimal('0.001')
+    # CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
+    # CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # if CPU_utility in [Decimal('10.983')]:
+    #     CPU_utility = CPU_utility + Decimal('0.001')
     # 到这里没用
 
     cpu_burst_time_average = cpu_burst_time[0] / cpu_burst_time[1]
@@ -394,6 +395,7 @@ def SJF(process_list, f):
     f.write("-- total number of context switches: {0}\n".format(count_context_switch))
     f.write("-- total number of preemptions: {0}\n".format(0))
     f.write("-- CPU utilization: " + format(CPU_utility, '.3f') + "%\n")
+    #f.write(str(cpu_burst_time))
     #f.write(str(wait_time) + "\n")
     f.flush()  
 
@@ -415,7 +417,7 @@ def SJF(process_list, f):
 
 def SRT(process_list, f):
     
-    print("time 0ms: Simulator started for SJF [Q empty]")
+    print("time 0ms: Simulator started for SRT [Q empty]")
 
     # arrive_time_to_process 是从到达时间到进程， name_to_process 是从名字到进程
     ready_queue, arrive_time_to_process, name_to_process = [], {}, {}
@@ -426,38 +428,60 @@ def SRT(process_list, f):
     cpu_burst_time, time, preemption = [0, 0], 0, 0
     # running = [working? ; start time; end time; process name]
     running, block_map = [False, 1, -1, ''], {}
-    compete, quit_time = "", -1
+    quit_time = -2
     flag = ''
     that_process = ''
+    turn_around_start, turn_around_end = 0, 0
 
     for p in process_list:
-        arrive_time_to_process[p[1]], name_to_process[p[0]] = copy.deepcopy(p), copy.deepcopy(p)
+        new_p = copy.deepcopy(p)
+        arrive_time_to_process[p[1]], name_to_process[p[0]] = new_p, new_p
+        temp = sum(p[3])
+        cpu_burst_time = [cpu_burst_time[0] + temp, cpu_burst_time[1] + p[2]]
+        work_time += temp
 
     while True:
+
+        # if time > DISPLAY_MAX_T:
+        #     break
+
+        # if time == 3679:
+        #     print(running)
 
         temp_queue = ready_queue
         current_process_name, current_process = '', []
 
         if name_to_process == {}:
-            string = "time {0}ms: Simulator ended for SJF [Q empty]".format(time + 1)
+            string = "time {0}ms: Simulator ended for SRT [Q empty]".format(time + 1)
             print(string)
             break
 
         elif running[0] != False:
             if time == running[1]:
                 current_process_name = running[3]
+                current_process = name_to_process[current_process_name]
                 temp = running[2] - running[1]
-                cpu_burst_time = [cpu_burst_time[0] + temp, cpu_burst_time[1] + 1]
-                work_time = work_time + temp
+                # if current_process[5] == current_process[6]:
+                #     work_time = work_time + temp
+                #     cpu_burst_time = [cpu_burst_time[0] + temp, cpu_burst_time[1] + 1]
                 if time < DISPLAY_MAX_T:
-                    string = "time {0}ms: Process {1} (tau {2}ms) started using the CPU for "\
-                        "{3}ms burst {4}".format(time, running[3], name_to_process[current_process_name][5],\
-                            temp, get_ready_queue(ready_queue))
-                    print(string)
+                    if current_process[5] == current_process[6]:
+                        string = "time {0}ms: Process {1} (tau {2}ms) started using the CPU for "\
+                            "{3}ms burst {4}".format(time, running[3], name_to_process[current_process_name][5],\
+                                temp, get_ready_queue(ready_queue))
+                        print(string)
+                    else:
+                        string = "time {0}ms: Process {1} (tau {2}ms) started using the CPU for remaining "\
+                            "{3}ms of {4}ms burst {5}".format(time, running[3], name_to_process[current_process_name][5],\
+                                temp, temp + current_process[5] - current_process[6], get_ready_queue(ready_queue))
+                        print(string)
 
-            elif time == running[2]:
+            elif time == running[2] and not (running[2] - time_switch // 2 <= quit_time < running[2]):
+                turn_around_end += time
                 current_process_name = running[3]
                 current_process = name_to_process[current_process_name]
+                temp = current_process[3].pop(0)
+                current_process[2] -= 1
 
                 if current_process[3] == []:
                     string = "time {0}ms: Process {1} terminated {2}".format(\
@@ -474,7 +498,7 @@ def SRT(process_list, f):
                         print(string)
                 
                     block_time = current_process[4].pop(0) + time_switch // 2
-                    temp = running[2] - running[1]
+                    # temp = running[2] - running[1]
                     tau = math.ceil(constant_alpha * temp + (1 - constant_alpha) * current_process[5])
 
                     if time < DISPLAY_MAX_T:
@@ -505,12 +529,22 @@ def SRT(process_list, f):
 
         #arrive_process = arrive_time_to_process[time][0] if time in arrive_time_to_process else ''
 
-        if running[3] != '':
-            if name_to_process[ready_queue[0]][6] < name_to_process[running[3]][6]:
-                flag = 'r' # will preempt
-                that_process = ready_queue[0]
-            if name_to_process[block_complete_process[0]][6] < name_to_process[running[3]][6]:
-                if name_to_process[block_complete_process[0]][6] < name_to_process[ready_queue[0]][6]:
+        if time >= quit_time + 4 and running[3] != '' and running[1] <= time < running[2]:
+            if ready_queue and block_complete_process:
+                if name_to_process[ready_queue[0]][6] < name_to_process[running[3]][6] and name_to_process[ready_queue[0]][6] < name_to_process[block_complete_process[0]][6]:
+                    flag = 'r' # will preempt
+                    that_process = ready_queue[0]
+                if name_to_process[block_complete_process[0]][6] < name_to_process[running[3]][6] and name_to_process[block_complete_process[0]][6] <= name_to_process[ready_queue[0]][6]:
+                    flag = 'b' # complete IO; preempting
+                    that_process = block_complete_process[0]
+
+            elif ready_queue:
+                if name_to_process[ready_queue[0]][6] < name_to_process[running[3]][6]:
+                    flag = 'r' # will preempt
+                    that_process = ready_queue[0]
+            
+            elif block_complete_process:
+                if name_to_process[block_complete_process[0]][6] < name_to_process[running[3]][6]:
                     flag = 'b' # complete IO; preempting
                     that_process = block_complete_process[0]
         
@@ -528,6 +562,7 @@ def SRT(process_list, f):
         #         flag = 'b'
 
         for k in block_complete_process:
+            turn_around_start += time
             if k != that_process or running[0] == False:
                 ready_queue.append(k)
                 ready_queue.sort(key = lambda x : (name_to_process[x][6], x))
@@ -536,20 +571,25 @@ def SRT(process_list, f):
                     .format(time, k, name_to_process[k][5], get_ready_queue(ready_queue))
                     print(string)
             else:
+                ready_queue.append(k)
+                ready_queue.sort(key = lambda x : (name_to_process[x][6], x))
+                preemption += 1
                 if time < DISPLAY_MAX_T:
                     string = "time {0}ms: Process {1} (tau {2}ms) completed I/O; preempting {3} {4}"\
                     .format(time, k, name_to_process[k][5], running[3], get_ready_queue(ready_queue))
                     print(string)
         
         if flag == 'r' and running[0] == True:
-            index = ready_queue.index(that_process)
-            ready_queue.pop(index)
+            preemption += 1
+            # index = ready_queue.index(that_process)
+            # ready_queue.pop(index)
             if time < DISPLAY_MAX_T:
                 string = "time {0}ms: Process {1} (tau {2}ms) will preempt {3} {4}"\
                     .format(time, that_process, name_to_process[that_process][5], running[3], get_ready_queue(ready_queue))
                 print(string)
 
         if time in arrive_time_to_process:
+            turn_around_start += time
             ready_queue.append(arrive_time_to_process[time][0])
             ready_queue.sort(key = lambda x : (name_to_process[x][6], x))
             if time < DISPLAY_MAX_T:
@@ -557,82 +597,92 @@ def SRT(process_list, f):
                 .format(time, arrive_time_to_process[time][0], arrive_time_to_process[time][5], get_ready_queue(ready_queue))
                 print(string)
 
-        if running[0] == True and flag != '':
+        if flag != '':
             quit_time = time
-            if flag == 'b':
-                compete = that_process
-        elif flag == '':
-            compete = ''
-            that_process = ''
 
         if running[3] != '' and running[1] <= time < running[2]:
-            name_to_process[running[3]][6] -= 1
+            # print("到我了")
+            if quit_time < time - 2:
+                name_to_process[running[3]][6] -= 1
 
-        if time == quit_time and running[1] <= time < running[2]:
-            current_process_name = running[3]
-            current_process = name_to_process[current_process_name]
+        # if time == quit_time and running[1] <= time < running[2]:
+        #     current_process_name = running[3]
+        #     current_process = name_to_process[current_process_name]
 
-            if time < DISPLAY_MAX_T:
-                string = "time {0}ms: Process {1} switching out of CPU; "\
-                        "will block on I/O until time {2}ms {3}".format(time, \
-                            current_process_name, time + block_time, get_ready_queue(ready_queue))
-                print(string)
+            # if time < DISPLAY_MAX_T:
+            #     string = "time {0}ms: Process {1} switching out of CPU; "\
+            #             "will block on I/O until time {2}ms {3}".format(time, \
+            #                 current_process_name, time + block_time, get_ready_queue(ready_queue))
+            #     print(string)
 
 
-        elif time == quit_time + time_switch // 2:
+        if time == quit_time + time_switch // 2:
+            # print(running[3] + "quit")
+            if running[3]:
+                ready_queue.append(running[3])
+                ready_queue.sort(key = lambda x : (name_to_process[x][6], x))
             running[0] = False
         
-        if running[0] == False and compete != '':
-            next_p = compete
-            temp = name_to_process[next_p]
-            running = [True, time + time_switch // 2, time + temp[3].pop(0) + time_switch // 2, next_p]
-            temp[2], count_context_switch = temp[2] - 1, count_context_switch + 1
-            preemption += 1
-            flag = ''
+        # if running[0] == False and that_process != '':
+        #     next_p = that_process
+        #     temp = name_to_process[next_p]
+        #     running = [True, time + time_switch // 2, time + temp[3][0] + time_switch // 2, next_p]
+        #     count_context_switch = count_context_switch + 1
+        #     preemption += 1
 
-        elif running[0] == False and ready_queue != []:
+        if running[0] == False and ready_queue != []:
             next_p = ready_queue.pop(0)
             temp = name_to_process[next_p]
-            running = [True, time + time_switch // 2, time + temp[3].pop(0) + time_switch // 2, next_p]
-            temp[2], count_context_switch = temp[2] - 1, count_context_switch + 1
 
-            if current_process_name not in ['', next_p]:
-                #f.write("Here is it")
-                running[1], running[2] = running[1] + time_switch // 2, running[2] + time_switch // 2
+            if temp[5] == temp[6]:
+                # work_time = work_time + temp[3][0]
+                # cpu_burst_time = [cpu_burst_time[0] + temp[3][0], cpu_burst_time[1] + 1]
+                running = [True, time + time_switch // 2, time + temp[3][0] + time_switch // 2, next_p]
+                count_context_switch = count_context_switch + 1
+
+                # if current_process_name not in ['', next_p]:
+                #     #f.write("Here is it")
+                #     running[1], running[2] = running[1] + time_switch // 2, running[2] + time_switch // 2
+            else:
+                # print("运行到我了")
+                running = [True, time + time_switch // 2, time + temp[3][0] + time_switch // 2 - temp[5] + temp[6], next_p]
+                count_context_switch = count_context_switch + 1
 
         intersect = set(temp_queue).intersection(ready_queue)
         wait_time, time = wait_time + len(intersect), time + 1
+        flag, that_process = '', ''
 
     # 没用
 
-    cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
-    wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
-    turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time[0])) / Decimal(str(cpu_burst_time[1]))
+    # wait_time_average = Decimal(str(wait_time)) / Decimal(str(sum(p[2] for p in process_list)))
+    # turnaround_time_average = cpu_burst_time_average + wait_time_average + Decimal(str(time_switch))
     
-    cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # cpu_burst_time_average = Decimal(str(cpu_burst_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # wait_time_average = Decimal(str(wait_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # turnaround_time_average = Decimal(str(turnaround_time_average)).quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
     
-    if cpu_burst_time_average == Decimal('1001.295'):
-        cpu_burst_time_average += Decimal('0.001')
-        wait_time_average += Decimal('0.001')
-        # turnaround_time_average += Decimal('0.001')
+    # if cpu_burst_time_average == Decimal('1001.295'):
+    #     cpu_burst_time_average += Decimal('0.001')
+    #     wait_time_average += Decimal('0.001')
+    #     # turnaround_time_average += Decimal('0.001')
     
-    if wait_time_average == Decimal('66.377'):
-        wait_time_average += Decimal('0.001')
+    # if wait_time_average == Decimal('66.377'):
+    #     wait_time_average += Decimal('0.001')
     
-    if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
-        turnaround_time_average += Decimal('0.001')
+    # if turnaround_time_average in [Decimal('168.311'), Decimal('118.412')]:
+    #     turnaround_time_average += Decimal('0.001')
 
-    CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
-    CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
-    if CPU_utility in [Decimal('10.983')]:
-        CPU_utility = CPU_utility + Decimal('0.001')
+    # CPU_utility = Decimal(str(100 * work_time)) / Decimal(str((time + 1)))
+    # CPU_utility = CPU_utility.quantize(Decimal("0.001"), rounding = "ROUND_HALF_UP")
+    # if CPU_utility in [Decimal('10.983')]:
+    #     CPU_utility = CPU_utility + Decimal('0.001')
     # 到这里没用
 
     cpu_burst_time_average = cpu_burst_time[0] / cpu_burst_time[1]
     wait_time_average = wait_time / sum(p[2] for p in process_list)
-    turnaround_time_average = cpu_burst_time_average + wait_time_average + time_switch
+    # turnaround_time_average = cpu_burst_time_average + wait_time_average + time_switch
+    turnaround_time_average = (turn_around_end - turn_around_start) / cpu_burst_time[1] + time_switch // 2
     CPU_utility = 100 * work_time / (time + 1)
 
     cpu_burst_time_average = math.ceil(1000 * cpu_burst_time_average) / 1000
@@ -647,6 +697,7 @@ def SRT(process_list, f):
     f.write("-- total number of context switches: {0}\n".format(count_context_switch))
     f.write("-- total number of preemptions: {0}\n".format(preemption))
     f.write("-- CPU utilization: " + format(CPU_utility, '.3f') + "%\n")
+    #f.write(str(cpu_burst_time))
     #f.write(str(wait_time) + "\n")
     f.flush()  
 
@@ -910,7 +961,7 @@ if __name__ == "__main__":
 
     print()
 
-    #SRT(List3, f)
+    SRT(List3, f)
 
     print()
 
