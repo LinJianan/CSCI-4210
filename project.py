@@ -254,9 +254,6 @@ def SJF(process_list, f):
 
     while True:
 
-        if time > DISPLAY_MAX_T:
-            break
-
         temp_queue = ready_queue
         current_process_name, current_process = '', []
 
@@ -444,12 +441,6 @@ def SRT(process_list, f):
         work_time += temp
 
     while True:
-
-        # if time > DISPLAY_MAX_T:
-        #     break
-
-        # if time == 3679:
-        #     print(running)
 
         temp_queue = ready_queue
         current_process_name, current_process = '', []
@@ -748,9 +739,6 @@ def RR(process_list, f):
 
     while True:
 
-        # if time > DISPLAY_MAX_T:
-        #     break
-
         temp_queue = ready_queue
         current_process_name, current_process = '', []
 
@@ -773,7 +761,7 @@ def RR(process_list, f):
                     if time < DISPLAY_MAX_T:
                         string = "time {0}ms: Process {1} started using the CPU for "\
                             "{2}ms burst {3}".format(time, running[3], \
-                                temp, get_ready_queue(ready_queue))
+                                current_process[3][0], get_ready_queue(ready_queue))
                         print(string)
                 else:
                     if time < DISPLAY_MAX_T:
@@ -794,8 +782,8 @@ def RR(process_list, f):
                 if current_process[3] == []:
                     string = "time {0}ms: Process {1} terminated {2}".format(\
                         time, current_process_name, get_ready_queue(ready_queue))
-                    del name_to_process[current_process_name]
                     print(string)
+                    del name_to_process[current_process_name]
                 
                 else:
                     if time < DISPLAY_MAX_T:
@@ -822,14 +810,16 @@ def RR(process_list, f):
                 current_process = name_to_process[current_process_name]
                 current_process[6] -= time_slice
                 if ready_queue != []:
-                    string = "time {0}ms: Time slice expired; process {1} preempted with {2}ms to go {3}"\
-                        .format(time, current_process_name, current_process[6], get_ready_queue(ready_queue))
-                    print(string)
+                    if time < DISPLAY_MAX_T:
+                        string = "time {0}ms: Time slice expired; process {1} preempted with {2}ms to go {3}"\
+                            .format(time, current_process_name, current_process[6], get_ready_queue(ready_queue))
+                        print(string)
                     preemption += 1
                 else:
-                    string = "time {0}ms: Time slice expired; no preemption because ready queue is empty {1}"\
-                        .format(time, get_ready_queue(ready_queue))
-                    print(string)
+                    if time < DISPLAY_MAX_T:
+                        string = "time {0}ms: Time slice expired; no preemption because ready queue is empty {1}"\
+                            .format(time, get_ready_queue(ready_queue))
+                        print(string)
                     running[1], running[2] = time, time + min(time_slice, current_process[6])
                     # flag = True
                 
