@@ -10,6 +10,6 @@ HW 3 Threads: 50/50
 
 HW 4 Network and TCP: 50/50
 
-## 1 Project in CPU scheduling in Python 3
+## 1 Project in Python 3
 
-Score 52/57 (require 50)
+CPU scheduling: 52/57 (require 50)
