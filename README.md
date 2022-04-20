@@ -1,4 +1,4 @@
-# CSCI 4210 Homework, Lab and Project
+# CSCI 4210 Homework and Project
 
 ## 4 Homework in C
 
